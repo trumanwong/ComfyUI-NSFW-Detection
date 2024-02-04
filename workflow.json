@@ -1,6 +1,6 @@
 {
-  "last_node_id": 5,
-  "last_link_id": 5,
+  "last_node_id": 4,
+  "last_link_id": 3,
   "nodes": [
     {
       "id": 3,
@@ -14,18 +14,63 @@
         "1": 270
       },
       "flags": {},
-      "order": 2,
+      "order": 3,
       "mode": 0,
       "inputs": [
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 5
+          "link": 2
         }
       ],
       "properties": {},
       "widgets_values": [
         "ComfyUI"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "NSFWDetection",
+      "pos": [
+        678,
+        254
+      ],
+      "size": {
+        "0": 315,
+        "1": 78
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 1
+        },
+        {
+          "name": "alternative_image",
+          "type": "IMAGE",
+          "link": 3,
+          "slot_index": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            2
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NSFWDetection"
+      },
+      "widgets_values": [
+        0.9
       ]
     },
     {
@@ -47,7 +92,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            4
+            1
           ],
           "shape": 3,
           "slot_index": 0
@@ -68,60 +113,67 @@
       ]
     },
     {
-      "id": 5,
-      "type": "NSFWDetection",
+      "id": 4,
+      "type": "LoadImage",
       "pos": [
-        636,
-        303
+        220,
+        692
       ],
       "size": {
         "0": 315,
-        "1": 58
+        "1": 314
       },
       "flags": {},
       "order": 1,
       "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 4
-        }
-      ],
       "outputs": [
         {
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            5
+            3
           ],
-          "shape": 3,
-          "slot_index": 0
+          "shape": 3
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
         }
       ],
       "properties": {
-        "Node name for S&R": "NSFWDetection"
+        "Node name for S&R": "LoadImage"
       },
       "widgets_values": [
-        0.9
+        "违规提示图.png",
+        "image"
       ]
     }
   ],
   "links": [
     [
-      4,
+      1,
       1,
       0,
-      5,
+      2,
       0,
       "IMAGE"
     ],
     [
-      5,
-      5,
+      2,
+      2,
       0,
       3,
       0,
+      "IMAGE"
+    ],
+    [
+      3,
+      4,
+      0,
+      2,
+      1,
       "IMAGE"
     ]
   ],

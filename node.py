@@ -3,6 +3,15 @@ from PIL import Image
 from transformers import pipeline
 import torchvision.transforms as T
 import torch
+import numpy
+
+
+def tensor2pil(image):
+    return Image.fromarray(numpy.clip(255. * image.cpu().numpy().squeeze(), 0, 255).astype(numpy.uint8))
+
+
+def pil2tensor(image):
+    return torch.from_numpy(numpy.array(image).astype(numpy.float32) / 255.0).unsqueeze(0)
 
 
 class NSFWDetection:
@@ -22,6 +31,7 @@ class NSFWDetection:
                     "round": 0.001,
                     # The value represeting the precision to round to, will be set to the step value by default. Can be set to False to disable rounding.
                     "display": "nsfw_threshold"}),
+                "alternative_image": ("IMAGE",),
             },
         }
 
@@ -31,16 +41,19 @@ class NSFWDetection:
 
     CATEGORY = "NSFWDetection"
 
-    def run(self, image, score):
+    def run(self, image, score, alternative_image):
         transform = T.ToPILImage()
         classifier = pipeline("image-classification", model="Falconsai/nsfw_image_detection")
         for i in range(len(image)):
             result = classifier(transform(image[i].permute(2, 0, 1)))
+            image_size = image[i].size()
+            print(image[i].size())
+            width, height = image_size[0], image_size[1]
             for r in result:
                 if r["label"] == "nsfw":
-                    print(r['score'])
                     if r["score"] > score:
-                        image[i] = torch.clamp(image[i], 0, 0)
+                        image[i] = pil2tensor(transform(alternative_image[0].permute(2, 0, 1)).resize((width, height),
+                                                                               resample=Image.Resampling(2)))
 
         return (image,)
 
