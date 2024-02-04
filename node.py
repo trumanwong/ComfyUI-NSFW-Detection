@@ -48,7 +48,7 @@ class NSFWDetection:
             result = classifier(transform(image[i].permute(2, 0, 1)))
             image_size = image[i].size()
             print(image[i].size())
-            width, height = image_size[0], image_size[1]
+            width, height = image_size[1], image_size[0]
             for r in result:
                 if r["label"] == "nsfw":
                     if r["score"] > score:
