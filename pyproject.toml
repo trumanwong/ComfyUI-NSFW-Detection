@@ -1,0 +1,15 @@
+[project]
+name = "comfyui-nsfw-detection"
+description = "An implementation of NSFW Detection for ComfyUI"
+version = "1.0.0"
+license = "LICENSE"
+dependencies = ["transformers==4.37.2", "pillow==10.2.0"]
+
+[project.urls]
+Repository = "https://github.com/trumanwong/ComfyUI-NSFW-Detection"
+#  Used by Comfy Registry https://comfyregistry.org
+
+[tool.comfy]
+PublisherId = ""
+DisplayName = "ComfyUI-NSFW-Detection"
+Icon = ""
