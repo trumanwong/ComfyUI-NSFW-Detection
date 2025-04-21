@@ -1,8 +1,8 @@
 [project]
 name = "comfyui-nsfw-detection"
 description = "An implementation of NSFW Detection for ComfyUI"
-version = "1.0.0"
-license = "LICENSE"
+version = "1.0.1"
+license = { file = "LICENSE" }
 dependencies = ["transformers==4.37.2", "pillow==10.2.0"]
 
 [project.urls]
